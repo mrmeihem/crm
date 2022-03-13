@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -14,8 +13,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import {useState} from "react";
 
+import MainMenuItem from "../Components/MainMenuItem"
+
 const pages = ['Sales', 'Marketing', 'Analytics', 'Automation', 'Custom'];
-const settings = ['Profile', 'Account', 'Logout'];
+const settings = ['Account', 'Company', 'Billing', 'FAQ'];
 
 export const TopBar = () => {
 
@@ -36,6 +37,12 @@ export const TopBar = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const menuSpec = [{menuName: 'Sales', menuItems: ['Contacts', 'Companies', 'Deals', 'Forecast', 'Task', 'Quotes']},
+        {menuName: 'Marketing', menuItems: ['Ads Management', 'SMM Management', 'Website Analytics', 'Competitors Analytics', 'Email Analytics', 'Files']},
+        {menuName: 'Analytics', menuItems: ['Reports', 'Dashboards']},
+        {menuName: 'Automation', menuItems: ['Email Sequences', 'Workflow', 'Alerts']},
+        {menuName: 'Custom', menuItems: ['Contacts', 'Companies', 'Deals', 'Email Analytics', 'Files']}];
 
     return (
         <AppBar position="static">
@@ -83,7 +90,7 @@ export const TopBar = () => {
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                                     <Typography textAlign="center">{page}</Typography>
                                 </MenuItem>
-                            ))}
+                           ))}
                         </Menu>
                     </Box>
                     <Typography
@@ -95,14 +102,8 @@ export const TopBar = () => {
                         LOGO
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                {page}
-                            </Button>
+                        {menuSpec.map((menuSpec, index) => (
+                        <MainMenuItem key={index} sx={{ my: 2, color: 'white', display: 'block' }} menuSpec={menuSpec}/>
                         ))}
                     </Box>
 
